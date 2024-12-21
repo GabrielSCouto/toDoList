@@ -32,10 +32,17 @@ public class MainMenu {
 
             switch (option) {
                 case 1:
-                    entities.Tasks.addTask();
+                    Tasks.addTask();
                     break;
                 case 2:
                     Tasks.showTasks();
+                    break;
+                case 3:
+                    Tasks.updateTask();
+                    break;
+                case 4:
+                    Tasks.removeTask();
+                    break;
                 case 0:
                     System.out.println("Exiting...");
                     return;

@@ -68,11 +68,21 @@ public class Tasks {
 
     }
 
-    public void removeTask(){
+    public static void removeTask(){
+        showTasks();
 
+        System.out.println("\nEnter task name to delete it: ");
+        String nameDel = sc.nextLine();
+
+        tasks.removeIf(x -> x.getTaskName().equalsIgnoreCase(nameDel));
+
+        System.out.println("Task deleted successfully! Modified list: ");
+        System.out.println();
+
+        showTasks();
     }
 
-    public void updateTask(){
+    public static void updateTask(){
 
     }
 

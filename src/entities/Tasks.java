@@ -83,7 +83,65 @@ public class Tasks {
     }
 
     public static void updateTask(){
+        showTasks();
+        System.out.println("\nEnter task name to update: ");
+        String nameUpd = sc.nextLine();
 
+        Tasks result = tasks.stream().filter(x -> x.getTaskName().equalsIgnoreCase(nameUpd)).findFirst().orElse(null);
+
+        if (result != null) {
+            System.out.println("What do you wish to update?");
+            System.out.println("\n1 - All info\n2 - Title\n3 - Description\n4 - Deadline");
+            String option = sc.nextLine();
+
+            switch (option) {
+                case "1":
+                    System.out.print("\nUpdating all info... ");
+                    System.out.print("New title: ");
+                    result.taskName = sc.nextLine();
+                    System.out.print("New description: ");
+                    result.taskDescription = sc.nextLine();
+                    if (result.taskDate != null) {
+                        System.out.print("New deadline: ");
+                        result.taskDate = sc.nextLine();
+                    } else {
+                        System.out.print("Wish to add a deadline to this task? (y/n) ");
+                        String option1 = sc.nextLine();
+
+                        do {
+                            switch (option1){
+                                case "y":
+                                    System.out.print("New deadline (yyyy-mm-dd): ");
+                                    result.taskDate = sc.nextLine();
+                                    break;
+                                case "n":
+                                    break;
+                                default:
+                                    System.out.println("Invalid entry, try again!");
+                                    break;
+                            }
+                        } while (!option1.equalsIgnoreCase("y") && !option1.equalsIgnoreCase("n"));
+                    }
+                    break;
+                case "2":
+                    System.out.print("New title: ");
+                    result.taskName = sc.nextLine();
+                    break;
+                case "3":
+                    System.out.print("New description: ");
+                    result.taskDescription = sc.nextLine();
+                    break;
+                case "4":
+                    System.out.print("New deadline: ");
+                    result.taskDate = sc.nextLine();
+                    break;
+                default:
+                    break;
+            }
+
+        } else {
+            System.out.println("Task not found!");
+        }
     }
 
     public static void showTasks(){

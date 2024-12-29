@@ -1,5 +1,7 @@
 package entities;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -7,7 +9,7 @@ import java.util.Scanner;
 public class Tasks {
     private String taskName;
     private String taskDescription;
-    private String taskDate;
+    private LocalDate taskDate;
 
     static List<Tasks> tasks = new ArrayList<>();
 
@@ -17,7 +19,7 @@ public class Tasks {
 
     }
 
-    public Tasks(String taskName, String taskDescription, String taskDate) {
+    public Tasks(String taskName, String taskDescription, LocalDate taskDate) {
         this.taskName = taskName;
         this.taskDescription = taskDescription;
         this.taskDate = taskDate;
@@ -36,26 +38,28 @@ public class Tasks {
         return taskDescription;
     }
 
-    public String getTaskDate() {
+    public LocalDate getTaskDate() {
         return taskDate;
     }
 
-    public static void addTask(){
+    public static void addTask() {
 
         System.out.println("Enter task data:");
         System.out.print("TITLE: ");
         String taskName = sc.nextLine();
         System.out.print("DESCRIPTION: ");
         String taskDescription = sc.nextLine();
-        System.out.print("Wish to add deadline to current task? (y/n) ");
-        String option = sc.nextLine().trim().toLowerCase();
 
+        String option;
         do {
-            switch (option){
+            System.out.print("Wish to add deadline to current task? (y/n) ");
+            option = sc.nextLine().trim().toLowerCase();
+            switch (option) {
                 case "y":
                     System.out.println("DEADLINE (yyyy-mm-dd): ");
                     String taskDate = sc.nextLine();
-                    tasks.add(new Tasks(taskName, taskDescription, taskDate));
+                    DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+                    tasks.add(new Tasks(taskName, taskDescription, LocalDate.parse(taskDate, format)));
                     break;
                 case "n":
                     tasks.add(new Tasks(taskName, taskDescription));
@@ -103,7 +107,8 @@ public class Tasks {
                     result.taskDescription = sc.nextLine();
                     if (result.taskDate != null) {
                         System.out.print("New deadline: ");
-                        result.taskDate = sc.nextLine();
+                        result.taskDate =  LocalDate.parse(sc.nextLine(), DateTimeFormatter.ofPattern("yyyy/MM/dd"));
+
                     } else {
                         System.out.print("Wish to add a deadline to this task? (y/n) ");
                         String option1 = sc.nextLine();
@@ -112,7 +117,7 @@ public class Tasks {
                             switch (option1){
                                 case "y":
                                     System.out.print("New deadline (yyyy-mm-dd): ");
-                                    result.taskDate = sc.nextLine();
+                                    result.taskDate =  LocalDate.parse(sc.nextLine(), DateTimeFormatter.ofPattern("yyyy/MM/dd"));
                                     break;
                                 case "n":
                                     break;
@@ -133,7 +138,7 @@ public class Tasks {
                     break;
                 case "4":
                     System.out.print("New deadline: ");
-                    result.taskDate = sc.nextLine();
+                    result.taskDate =  LocalDate.parse(sc.nextLine(), DateTimeFormatter.ofPattern("yyyy/MM/dd"));
                     break;
                 default:
                     break;

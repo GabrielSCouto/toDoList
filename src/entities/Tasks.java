@@ -1,8 +1,6 @@
 package entities;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -97,7 +95,7 @@ public class Tasks {
         showTasks();
     }
 
-    public static void updateTask(){
+    public static void updateTask() {
         showTasks();
         System.out.println("\nEnter task name to update: ");
         String nameUpd = sc.nextLine();
@@ -160,10 +158,16 @@ public class Tasks {
         }
     }
 
-    public static void showTasks(){
+    public static void showTasks() {
         System.out.println("Showing tasks: ");
-        for (Tasks task : tasks) {
-            System.out.println(task);
+        try (BufferedReader reader = new BufferedReader(new FileReader(TASKS_FILE))){
+            String line;
+            while ((line = reader.readLine()) != null){
+                String[] fields = line.split("/");
+                System.out.println("Task: " + fields[0] + " | Description: " + fields[1] + " | Deadline: " + fields[2]);
+            }
+        } catch (IOException e){
+            System.out.println("Failed to load tasks: " + e.getMessage());
         }
     }
 

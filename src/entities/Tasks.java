@@ -1,5 +1,8 @@
 package entities;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -12,8 +15,9 @@ public class Tasks {
     private LocalDate taskDate;
 
     static List<Tasks> tasks = new ArrayList<>();
-
     static Scanner sc = new Scanner(System.in);
+
+    private static final String TASKS_FILE = "tasks.csv";
 
     public Tasks(){
 
@@ -70,6 +74,13 @@ public class Tasks {
             }
         } while (!option.equalsIgnoreCase("y") && !option.equalsIgnoreCase("n"));
 
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(TASKS_FILE))) {
+            for (Tasks task : tasks){
+                writer.write(String.format("%s/%s/%s\n", task.getTaskName(), task.getTaskDescription(), task.getTaskDate()));
+            }
+        } catch (IOException e) {
+            System.out.println("Failed to save tasks" + e.getMessage());
+        }
     }
 
     public static void removeTask(){

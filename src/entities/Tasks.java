@@ -158,18 +158,26 @@ public class Tasks {
         }
     }
 
-    public static void showTasks() {
+    public static List<Tasks> showTasks() {
         System.out.println("Showing tasks: ");
+        List<Tasks> taskList = new ArrayList<>();
+
         try (BufferedReader reader = new BufferedReader(new FileReader(TASKS_FILE))){
             String line;
             while ((line = reader.readLine()) != null){
                 String[] fields = line.split("/");
+                if (fields[2].equals("null")){
+                    taskList.add(new Tasks(fields[0],fields[1]));
+                } else {
+                    taskList.add(new Tasks(fields[0], fields[1], LocalDate.parse(fields[2], DateTimeFormatter.ofPattern("yyyy-MM-dd"))));
+                }
                 System.out.println("Task: " + fields[0] + " | Description: " + fields[1] + " | Deadline: " + fields[2]);
             }
-        } catch (IOException e){
-            System.out.println("Failed to load tasks: " + e.getMessage());
-        }
+    } catch (IOException e){
+        System.out.println("Failed to load tasks: " + e.getMessage());
     }
+        return taskList;
+}
 
     public String toString(){
         return "Title: " + taskName + ", Description: " + taskDescription + ", Deadline: " + taskDate;

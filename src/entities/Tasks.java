@@ -17,9 +17,7 @@ public class Tasks {
 
     private static final String TASKS_FILE = "tasks.csv";
 
-    public Tasks() {
-
-    }
+    public Tasks() {}
 
     public Tasks(String taskName, String taskDescription, LocalDate taskDate) {
         this.taskName = taskName;
@@ -32,29 +30,17 @@ public class Tasks {
         this.taskDescription = taskDescription;
     }
 
-    public String getTaskName() {
-        return taskName;
-    }
+    public String getTaskName() {return taskName;}
 
-    public void setTaskName(String taskName){
-        this.taskName = taskName;
-    }
+    public void setTaskName(String taskName){this.taskName = taskName;}
 
-    public String getTaskDescription() {
-        return taskDescription;
-    }
+    public String getTaskDescription() {return taskDescription;}
 
-    public void setTaskDescription(String taskDescription){
-        this.taskDescription = taskDescription;
-    }
+    public void setTaskDescription(String taskDescription){this.taskDescription = taskDescription;}
 
-    public LocalDate getTaskDate() {
-        return taskDate;
-    }
+    public LocalDate getTaskDate() {return taskDate;}
 
-    public void setTaskDate(LocalDate taskDate){
-        this.taskDate = taskDate;
-    }
+    public void setTaskDate(LocalDate taskDate){this.taskDate = taskDate;}
 
     public static void addTask() {
         showTasks();
@@ -85,7 +71,7 @@ public class Tasks {
             }
         } while (!option.equalsIgnoreCase("y") && !option.equalsIgnoreCase("n"));
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(TASKS_FILE))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(TASKS_FILE, true))) {
             for (Tasks task : tasks) {
                 writer.write(String.format("%s/%s/%s\n", task.getTaskName(), task.getTaskDescription(), task.getTaskDate()));
             }

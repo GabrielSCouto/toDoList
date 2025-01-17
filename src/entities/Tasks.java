@@ -1,5 +1,7 @@
 package entities;
 
+import menus.MainMenu;
+
 import java.io.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -179,6 +181,16 @@ public class Tasks {
             System.out.println("Failed to load tasks: " + e.getMessage());
         }
         return taskList;
+    }
+
+    public static void resetFile() {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(TASKS_FILE))){
+            writer.write("");
+        } catch (IOException e){
+            System.out.println("Failed to reset all tasks: " + e.getMessage());
+        } finally {
+            MainMenu.menu();
+        }
     }
     
     public String toString() {

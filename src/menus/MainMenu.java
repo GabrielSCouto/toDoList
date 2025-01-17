@@ -23,6 +23,7 @@ public class MainMenu {
             System.out.println("2. View all tasks");
             System.out.println("3. Update a task");
             System.out.println("4. Delete a task");
+            System.out.println("5. Reset file");
             System.out.println("0. Exit");
             System.out.println("------------------");
             System.out.println();
@@ -43,6 +44,8 @@ public class MainMenu {
                 case 4:
                     Tasks.removeTask();
                     break;
+                case 5:
+                    Tasks.resetFile();
                 case 0:
                     System.out.println("Exiting...");
                     return;
